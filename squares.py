@@ -51,29 +51,30 @@ def convert_numbers(list_of_strings):
 
 
 if __name__ == "__main__":
-    #numbers_strings = ["1","2","4"]
-    #weight_strings = ["1","1","1"]        
-    #numbers = convert_numbers(numbers_strings)
-    #weights = convert_numbers(weight_strings)
-    #result = average_of_squares(numbers, weights)
-    #print(result)
     import argparse
     parser = argparse.ArgumentParser(
         description="Compute the weighted average of squares from a list of numbers."
     )
     parser.add_argument(
-        'numbers', nargs='+',
-        help="List of numbers (whitespace separated if needed)."
+        'number_file',
+        help="The file name of numbers(Please include the file suffix)."
     )
     parser.add_argument(
-        '--weights', '-w', nargs='*', default=None,
-        help="Optional list of weights (whitespace separated if needed)."
+        '--weights', '-w',
+        help="The file name of weights(Please include the suffix)."
     )
     args = parser.parse_args()
-    numbers = convert_numbers(args.numbers)
+
+    type(args.number_file)
+    print("The file name of numbers is:", args.number_file, type(args.number_file))
+    with open(args.number_file) as f:
+        numbers = convert_numbers(f.read())
+    print("The numbers are:", numbers)
     if args.weights is not None:
-        weights = convert_numbers(args.weights)
+        with open(args.weights) as f:
+            weights = convert_numbers(f.read())
     else:
-        weights = None 
-        result = average_of_squares(numbers, weights)
+        weights = None
+
+    result = average_of_squares(numbers, weights)
     print(result)
